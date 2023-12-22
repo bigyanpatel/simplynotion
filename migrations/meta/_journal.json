@@ -15,6 +15,13 @@
       "when": 1703279070457,
       "tag": "0001_wooden_meteorite",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1703280204378,
+      "tag": "0002_shiny_warpath",
+      "breakpoints": true
     }
   ]
 }
