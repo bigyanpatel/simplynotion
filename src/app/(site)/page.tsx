@@ -1,18 +1,18 @@
-import TitleSection from '@/components/landing-page/title-section';
-import { Button } from '@/components/ui/button';
-import Image from 'next/image';
-import React from 'react';
-import Banner from '../../../public/appBanner.png';
-import Cal from '../../../public/cal.png';
-import Diamond from '../../../public/icons/diamond.svg';
-import CheckIcon from '../../../public/icons/check.svg';
-import { CLIENTS, PRICING_CARDS, PRICING_PLANS, USERS } from '@/lib/constants';
-import { randomUUID } from 'crypto';
-import { twMerge } from 'tailwind-merge';
-import clsx from 'clsx';
-import CustomCard from '@/components/landing-page/custom-card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { CardContent, CardDescription, CardTitle } from '@/components/ui/card';
+import TitleSection from "@/components/landing-page/title-section";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import React from "react";
+import Banner from "../../../public/appBanner.png";
+import Cal from "../../../public/cal.png";
+import Diamond from "../../../public/icons/diamond.svg";
+import CheckIcon from "../../../public/icons/check.svg";
+import { CLIENTS, PRICING_CARDS, PRICING_PLANS, USERS } from "@/lib/constants";
+import { randomUUID } from "crypto";
+import { twMerge } from "tailwind-merge";
+import clsx from "clsx";
+import CustomCard from "@/components/landing-page/custom-card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { CardContent, CardDescription, CardTitle } from "@/components/ui/card";
 
 const HomePage = () => {
   return (
@@ -68,10 +68,7 @@ const HomePage = () => {
           ml-[-50px]
         "
         >
-          <Image
-            src={Banner}
-            alt="Application Banner"
-          />
+          <Image src={Banner} alt="Application Banner" />
           <div
             className="bottom-0
             top-[50%]
@@ -185,11 +182,7 @@ const HomePage = () => {
           border-opacity-10
         "
         >
-          <Image
-            src={Cal}
-            alt="Banner"
-            className="rounded-2xl"
-          />
+          <Image src={Cal} alt="Banner" className="rounded-2xl" />
         </div>
       </section>
       <section className="relative">
@@ -224,13 +217,13 @@ const HomePage = () => {
             <div
               key={randomUUID()}
               className={twMerge(
-                clsx('mt-10 flex flex-nowrap gap-6 self-start', {
-                  'flex-row-reverse': index === 1,
-                  'animate-[slide_250s_linear_infinite]': true,
-                  'animate-[slide_250s_linear_infinite_reverse]': index === 1,
-                  'ml-[100vw]': index === 1,
+                clsx("mt-10 flex flex-nowrap gap-6 self-start", {
+                  "flex-row-reverse": index === 1,
+                  "animate-[slide_250s_linear_infinite]": true,
+                  "animate-[slide_250s_linear_infinite_reverse]": index === 1,
+                  "ml-[100vw]": index === 1,
                 }),
-                'hover:paused'
+                "hover:paused"
               )}
             >
               {USERS.map((testimonial, index) => (
@@ -300,9 +293,9 @@ const HomePage = () => {
             <CustomCard
               key={card.planType}
               className={clsx(
-                'w-[300px] rounded-2xl dark:bg-black/40 background-blur-3xl relative',
+                "w-[300px] rounded-2xl dark:bg-black/40 background-blur-3xl relative",
                 {
-                  'border-brand-primaryPurple/70':
+                  "border-brand-primaryPurple/70":
                     card.planType === PRICING_PLANS.proplan,
                 }
               )}
@@ -346,7 +339,7 @@ const HomePage = () => {
                       /mo
                     </span>
                   ) : (
-                    ''
+                    ""
                   )}
                   <p className="dark:text-washed-purple-800">
                     {card.description}
@@ -356,8 +349,8 @@ const HomePage = () => {
                     className="whitespace-nowrap w-full mt-4"
                   >
                     {card.planType === PRICING_PLANS.proplan
-                      ? 'Go Pro'
-                      : 'Get Started'}
+                      ? "Go Pro"
+                      : "Get Started"}
                   </Button>
                 </CardContent>
               }
@@ -379,10 +372,7 @@ const HomePage = () => {
                       gap-2
                     "
                     >
-                      <Image
-                        src={CheckIcon}
-                        alt="Check Icon"
-                      />
+                      <Image src={CheckIcon} alt="Check Icon" />
                       {feature}
                     </li>
                   ))}
