@@ -8,7 +8,6 @@ import { FormSchema } from "@/lib/types";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { Input } from "@/components/ui/input";
 
 const LoginPage = () => {
