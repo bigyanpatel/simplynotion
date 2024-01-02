@@ -5,10 +5,11 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormSchema } from "@/lib/types";
-import { Form } from "@/components/ui/form";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { Input } from "@/components/ui/input";
 
 const LoginPage = () => {
   // const router = useRouter();
@@ -46,6 +47,25 @@ const LoginPage = () => {
             cypress.
           </span>
         </Link>
+        <FormDescription
+          className="
+        text-foreground/60"
+        >
+          An all-In-One Collaboration and Productivity Platform
+        </FormDescription>
+        <FormField
+          disabled={isLoading}
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input type="email" placeholder="Email" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
       </form>
     </Form>
   );
