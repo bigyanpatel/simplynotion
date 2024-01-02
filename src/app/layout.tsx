@@ -17,8 +17,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={twMerge("bg-background", inter.className)}>
+    <html lang="en" suppressHydrationWarning={true}>
+      <body className={twMerge("bg-background", inter.className)} suppressHydrationWarning={true}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           {children}
         </ThemeProvider>
