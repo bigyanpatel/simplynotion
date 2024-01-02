@@ -1,7 +1,7 @@
 "use client";
-
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormSchema } from "@/lib/types";
@@ -18,9 +18,10 @@ import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Loader from "@/components/global/Loader";
+import { actionLoginUser } from "@/lib/server-actions/auth-actions";
 
 const LoginPage = () => {
-  // const router = useRouter();
+  const router = useRouter();
   const [submitError, setSubmitError] = useState("");
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -33,7 +34,14 @@ const LoginPage = () => {
 
   const onSubmit: SubmitHandler<z.infer<typeof FormSchema>> = async (
     formData
-  ) => {};
+  ) => {
+    const { error } = await actionLoginUser(formData);
+    if (error) {
+      form.reset();
+      setSubmitError(error.message);
+    }
+    router.replace("/dashboard");
+  };
 
   return (
     <Form {...form}>
@@ -44,14 +52,19 @@ const LoginPage = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-full sm:justify-center sm:w-[400px] space-y-6 flex flex-col"
       >
-        <Link href="/" className="w-full flex justify-start items-center">
-          <Image
-            src={"/cypresslogo.svg"}
-            alt="Cypress Logo"
-            width={50}
-            height={50}
-          />
-          <span className="font-semibold dark:text-white text-4xl first-letter:ml-2">
+        <Link
+          href="/"
+          className="
+          w-full
+          flex
+          justify-left
+          items-center"
+        >
+          <Image src={'/cypresslogo.svg'} alt="cypress Logo" width={50} height={50} />
+          <span
+            className="font-semibold
+          dark:text-white text-4xl first-letter:ml-2"
+          >
             cypress.
           </span>
         </Link>
