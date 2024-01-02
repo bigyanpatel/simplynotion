@@ -5,10 +5,19 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormSchema } from "@/lib/types";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import Link from "next/link";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import Loader from "@/components/global/Loader";
 
 const LoginPage = () => {
   // const router = useRouter();
@@ -65,6 +74,34 @@ const LoginPage = () => {
             </FormItem>
           )}
         />
+        <FormField
+          disabled={isLoading}
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Input type="password" placeholder="Password" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        {submitError && <FormMessage>{submitError}</FormMessage>}
+        <Button
+          type="submit"
+          className="w-full p-6"
+          size="lg"
+          disabled={isLoading}
+        >
+          {!isLoading ? "Login" : <Loader />}
+        </Button>
+        <span className="self-container">
+          Dont have an account?{" "}
+          <Link href="/signup" className="text-primary">
+            Sign Up
+          </Link>
+        </span>
       </form>
     </Form>
   );
