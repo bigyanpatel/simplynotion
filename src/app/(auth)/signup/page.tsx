@@ -21,6 +21,8 @@ import Logo from "../../../../public/cypresslogo.svg";
 import Loader from "@/components/global/Loader";
 import { FormSchema } from "@/lib/types";
 import { actionSignUpUser } from "@/lib/server-actions/auth-actions";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { MailCheck } from "lucide-react";
 
 const SignUpFormSchema = z
   .object({
@@ -169,6 +171,19 @@ const Signup = () => {
             Login
           </Link>
         </span>
+        {(confirmation || codeExchangeError) && (
+          <>
+            <Alert className={confirmationAndErrorStyles}>
+              {!codeExchangeError && <MailCheck className="h-4 w-4" />}
+              <AlertTitle>
+                {codeExchangeError ? "Invalid Link" : "Check your email."}
+              </AlertTitle>
+              <AlertDescription>
+                {codeExchangeError || "An email confirmation has been sent."}
+              </AlertDescription>
+            </Alert>
+          </>
+        )}
       </form>
     </Form>
   );
