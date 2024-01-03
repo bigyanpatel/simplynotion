@@ -20,6 +20,7 @@ import { z } from "zod";
 import Logo from "../../../../public/cypresslogo.svg";
 import Loader from "@/components/global/Loader";
 import { FormSchema } from "@/lib/types";
+import { actionSignUpUser } from "@/lib/server-actions/auth-actions";
 
 const SignUpFormSchema = z
   .object({
@@ -66,10 +67,15 @@ const Signup = () => {
   });
 
   const isLoading = form.formState.isSubmitting;
-  const onSubmit = async ({
-    email,
-    password,
-  }: z.infer<typeof FormSchema>) => {};
+  const onSubmit = async ({ email, password }: z.infer<typeof FormSchema>) => {
+    const { error } = await actionSignUpUser({ email, password });
+    if (error) {
+      setSubmitError(error.message);
+      form.reset();
+      return;
+    }
+    setConfirmation(true);
+  };
 
   return (
     <Form {...form}>
