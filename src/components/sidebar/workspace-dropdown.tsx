@@ -62,6 +62,68 @@ const WorkspaceDropdown: React.FC<WorkspaceDropdownProps> = ({
             "Select a workspace"
           )}
         </span>
+        {isOpen && (
+          <div
+            className="origin-top-right
+          absolute
+          w-full
+          rounded-md
+          shadow-md
+          z-50
+          h-[190px]
+          bg-black/10
+          backdrop-blur-lg
+          group
+          overflow-scroll
+          border-[1px]
+          border-muted
+      "
+          >
+            <div className="rounded-md flex flex-col">
+              <div className="!p-2">
+                {!!privateWorkspaces.length && (
+                  <>
+                    <p className="text-muted-foreground">Private</p>
+                    <hr></hr>
+                    {privateWorkspaces.map((option) => (
+                      <SelectedWorkspace
+                        key={option.id}
+                        workspace={option}
+                        onClick={handleSelect}
+                      />
+                    ))}
+                  </>
+                )}
+                {!!sharedWorkspaces.length && (
+                  <>
+                    <p className="text-muted-foreground">Shared</p>
+                    <hr />
+                    {sharedWorkspaces.map((option) => (
+                      <SelectedWorkspace
+                        key={option.id}
+                        workspace={option}
+                        onClick={handleSelect}
+                      />
+                    ))}
+                  </>
+                )}
+                {!!collaboratingWorkspaces.length && (
+                  <>
+                    <p className="text-muted-foreground">Collaborating</p>
+                    <hr />
+                    {collaboratingWorkspaces.map((option) => (
+                      <SelectedWorkspace
+                        key={option.id}
+                        workspace={option}
+                        onClick={handleSelect}
+                      />
+                    ))}
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
