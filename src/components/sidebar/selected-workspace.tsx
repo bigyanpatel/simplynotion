@@ -16,14 +16,16 @@ const SelectedWorkspace: React.FC<SelectedWorkspaceProps> = ({
 }) => {
   const supabase = createClientComponentClient();
   const [workspaceLogo, setWorkspaceLogo] = useState("/cypresslogo.svg");
+
   useEffect(() => {
     if (workspace.logo) {
       const path = supabase.storage
         .from("workspace-logos")
         .getPublicUrl(workspace.logo)?.data.publicUrl;
-      setWorkspaceLogo(path);
+      setWorkspaceLogo(path);      
     }
   }, [workspace]);
+  
   return (
     <Link
       href={`/dashboard/${workspace.id}`}
@@ -47,7 +49,7 @@ const SelectedWorkspace: React.FC<SelectedWorkspaceProps> = ({
         alt="workspace logo"
         width={26}
         height={26}
-        objectFit="cover"
+        className="object-cover"
       />
       <div className="flex flex-col">
         <p
