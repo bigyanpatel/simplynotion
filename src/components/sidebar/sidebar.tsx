@@ -2,14 +2,9 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import React from "react";
 
 import { cookies } from "next/headers";
-import { getFolders, getUserSubscriptionStatus } from "@/lib/supabase/queries";
+import { getCollaboratingWorkspaces, getFolders, getPrivateWorkspaces, getSharedWorkspaces, getUserSubscriptionStatus } from "@/lib/supabase/queries";
 import { redirect } from "next/navigation";
 import { twMerge } from "tailwind-merge";
-import {
-  getCollaboratingWorkspaces,
-  getPrivateWorkspaces,
-  getSharedWorkspaces,
-} from "@/lib/supabase/schema";
 import WorkspaceDropdown from "./workspace-dropdown";
 
 interface SidebarProps {
