@@ -2,13 +2,14 @@
 import { useAppState } from '@/lib/providers/state-provider';
 import { Folder } from '@/lib/supabase/supabase.types';
 import React, { useEffect, useState } from 'react';
+import TooltipComponent from '../global/tooltip-component';
 import { PlusIcon } from 'lucide-react';
 import { useSupabaseUser } from '@/lib/providers/supabase-user-provider';
 import { v4 } from 'uuid';
 import { createFolder } from '@/lib/supabase/queries';
 import { useToast } from '../ui/use-toast';
-import TooltipComponent from '../global/tooltip-component';
 import { Accordion } from '../ui/accordion';
+import Dropdown from './Dropdown';
 
 interface FoldersDropdownListProps {
   workspaceFolders: Folder[];
@@ -19,7 +20,9 @@ const FoldersDropdownList: React.FC<FoldersDropdownListProps> = ({
   workspaceFolders,
   workspaceId,
 }) => {
+//   useSupabaseRealtime();
   const { state, dispatch, folderId } = useAppState();
+//   const { open, setOpen } = useSubscriptionModal();
   const { toast } = useToast();
   const [folders, setFolders] = useState(workspaceFolders);
   const { subscription } = useSupabaseUser();
@@ -53,9 +56,10 @@ const FoldersDropdownList: React.FC<FoldersDropdownListProps> = ({
 
   //add folder
   const addFolderHandler = async () => {
-    // if (folders.length >= 3 && !subscription) {
-    //   return;
-    // }
+    if (folders.length >= 3 && !subscription) {
+    //   setOpen(true);
+      return;
+    }
     const newFolder: Folder = {
       data: null,
       id: v4(),
@@ -126,6 +130,17 @@ const FoldersDropdownList: React.FC<FoldersDropdownListProps> = ({
         defaultValue={[folderId || '']}
         className="pb-20"
       >
+        {folders
+          .filter((folder) => !folder.inTrash)
+          .map((folder) => (
+            <Dropdown
+              key={folder.id}
+              title={folder.title}
+              listType="folder"
+              id={folder.id}
+              iconId={folder.iconId}
+            />
+          ))}
       </Accordion>
     </>
   );
