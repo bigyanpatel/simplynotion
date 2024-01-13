@@ -1,8 +1,6 @@
 import { boolean, integer, jsonb, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 import { prices, subscriptionStatus, users } from "../../../migrations/schema";
-import { and, eq, notExists, sql } from "drizzle-orm";
-import db from "./db";
-import { workspace } from "./supabase.types";
+import { sql } from "drizzle-orm";
 
 export const workspaces = pgTable("workspaces", {
   id: uuid("id").defaultRandom().primaryKey().notNull(),
@@ -99,32 +97,3 @@ export const collaborators = pgTable('collaborators', {
     .notNull()
     .references(() => users.id, { onDelete: 'cascade' }),
 });
-
-export const getPrivateWorkspaces = async (userId: string) => {
-  if (!userId) return [];
-  const privateWorkspaces = (await db
-    .select({
-      id: workspaces.id,
-      createdAt: workspaces.createdAt,
-      workspaceOwner: workspaces.workspaceOwner,
-      title: workspaces.title,
-      iconId: workspaces.iconId,
-      data: workspaces.data,
-      inTrash: workspaces.inTrash,
-      logo: workspaces.logo,
-      bannerUrl: workspaces.bannerUrl,
-    })
-    .from(workspaces)
-    .where(
-      and(
-        notExists(
-          db
-            .select()
-            .from(collaborators)
-            .where(eq(collaborators.workspaceId, workspaces.id))
-        ),
-        eq(workspaces.workspaceOwner, userId)
-      )
-    )) as workspace[];
-  return privateWorkspaces;
-};
