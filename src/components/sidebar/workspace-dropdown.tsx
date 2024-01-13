@@ -2,7 +2,6 @@
 import { useAppState } from "@/lib/providers/state-provider";
 import { workspace } from "@/lib/supabase/supabase.types";
 import React, { useEffect, useState } from "react";
-import SelectedWorkspace from "./selected-workspace";
 
 interface WorkspaceDropdownProps {
   privateWorkspaces: workspace[] | [];
@@ -55,13 +54,7 @@ const WorkspaceDropdown: React.FC<WorkspaceDropdownProps> = ({
   "
     >
       <div>
-        <span onClick={() => setIsOpen(!isOpen)}>
-          {selectedOption ? (
-            <SelectedWorkspace workspace={selectedOption} />
-          ) : (
-            "Select a workspace"
-          )}
-        </span>
+        <span onClick={() => setIsOpen(!isOpen)}></span>
       </div>
     </div>
   );

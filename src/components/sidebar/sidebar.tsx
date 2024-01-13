@@ -5,12 +5,7 @@ import { cookies } from "next/headers";
 import { getFolders, getUserSubscriptionStatus } from "@/lib/supabase/queries";
 import { redirect } from "next/navigation";
 import { twMerge } from "tailwind-merge";
-import {
-  getCollaboratingWorkspaces,
-  getPrivateWorkspaces,
-  getSharedWorkspaces,
-} from "@/lib/supabase/schema";
-import WorkspaceDropdown from "./workspace-dropdown";
+import { getCollaboratingWorkspaces, getPrivateWorkspaces, getSharedWorkspaces } from "@/lib/supabase/schema";
 
 interface SidebarProps {
   params: { workspaceId: string };
@@ -51,16 +46,7 @@ const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
         className
       )}
     >
-      <WorkspaceDropdown
-        privateWorkspaces={privateWorkspaces}
-        sharedWorkspaces={sharedWorkspaces}
-        collaboratingWorkspaces={collaboratingWorkspaces}
-        defaultValue={[
-          ...privateWorkspaces,
-          ...collaboratingWorkspaces,
-          ...sharedWorkspaces,
-        ].find((workspace) => workspace.id === params.workspaceId)}
-      />
+      Sidebar here
     </aside>
   );
 };
