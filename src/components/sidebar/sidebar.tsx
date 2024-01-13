@@ -5,7 +5,6 @@ import { cookies } from "next/headers";
 import { getFolders, getUserSubscriptionStatus } from "@/lib/supabase/queries";
 import { redirect } from "next/navigation";
 import { twMerge } from "tailwind-merge";
-import { getCollaboratingWorkspaces, getPrivateWorkspaces, getSharedWorkspaces } from "@/lib/supabase/schema";
 
 interface SidebarProps {
   params: { workspaceId: string };
@@ -31,14 +30,6 @@ const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
   );
   //   error
   if (subscriptionError || foldersError) redirect("/dashboard");
-
-  const [privateWorkspaces, collaboratingWorkspaces, sharedWorkspaces] =
-    await Promise.all([
-      getPrivateWorkspaces(user.id),
-      getCollaboratingWorkspaces(user.id),
-      getSharedWorkspaces(user.id),
-    ]);
-
   return (
     <aside
       className={twMerge(
