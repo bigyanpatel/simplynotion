@@ -2,10 +2,17 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import React from "react";
 
 import { cookies } from "next/headers";
-import { getCollaboratingWorkspaces, getFolders, getPrivateWorkspaces, getSharedWorkspaces, getUserSubscriptionStatus } from "@/lib/supabase/queries";
+import {
+  getCollaboratingWorkspaces,
+  getFolders,
+  getPrivateWorkspaces,
+  getSharedWorkspaces,
+  getUserSubscriptionStatus,
+} from "@/lib/supabase/queries";
 import { redirect } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import WorkspaceDropdown from "./workspace-dropdown";
+import PlanUsage from "./plan-usage";
 
 interface SidebarProps {
   params: { workspaceId: string };
@@ -46,16 +53,22 @@ const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
         className
       )}
     >
-      <WorkspaceDropdown
-        privateWorkspaces={privateWorkspaces}
-        sharedWorkspaces={sharedWorkspaces}
-        collaboratingWorkspaces={collaboratingWorkspaces}
-        defaultValue={[
-          ...privateWorkspaces,
-          ...collaboratingWorkspaces,
-          ...sharedWorkspaces,
-        ].find((workspace) => workspace.id === params.workspaceId)}
-      />
+      <div>
+        <WorkspaceDropdown
+          privateWorkspaces={privateWorkspaces}
+          sharedWorkspaces={sharedWorkspaces}
+          collaboratingWorkspaces={collaboratingWorkspaces}
+          defaultValue={[
+            ...privateWorkspaces,
+            ...collaboratingWorkspaces,
+            ...sharedWorkspaces,
+          ].find((workspace) => workspace.id === params.workspaceId)}
+        />
+        <PlanUsage
+          foldersLength={workspaceFolderData?.length || 0}
+          subscription={subscriptionData}
+        />
+      </div>
     </aside>
   );
 };
