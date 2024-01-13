@@ -1,4 +1,3 @@
-import Sidebar from "@/components/sidebar/sidebar";
 import React from "react";
 
 interface LayoutProps {
@@ -14,7 +13,6 @@ const Layout: React.FC<LayoutProps> = ({ children, params }) => {
       w-screen
   "
     >
-      <Sidebar params={params} />
       <div
         className="dark:boder-Neutrals-12/70
         border-l-[1px]
