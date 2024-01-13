@@ -2,7 +2,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import React from "react";
 
 import { cookies } from "next/headers";
-import { getFolders, getUserSubscriptionStatus } from "@/lib/supabase/queries";
+import { getUserSubscriptionStatus } from "@/lib/supabase/queries";
 import { redirect } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 
@@ -24,12 +24,12 @@ const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
   const { data: subscriptionData, error: subscriptionError } =
     await getUserSubscriptionStatus(user.id);
 
-  //   folders
-  const { data: workspaceFolderData, error: foldersError } = await getFolders(
-    params.workspaceId
-  );
-  //   error
-  if (subscriptionError || foldersError) redirect("/dashboard");
+  //folders
+//   const { data: workspaceFolderData, error: foldersError } = await getFolders(
+//     params.workspaceId
+//   );
+  //error
+  if (subscriptionError ) redirect("/dashboard");
   return (
     <aside
       className={twMerge(

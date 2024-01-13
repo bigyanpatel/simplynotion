@@ -1,9 +1,7 @@
 "use server";
-import { eq } from "drizzle-orm";
-import { folders, workspaces } from "../../../migrations/schema";
+import { workspaces } from "../../../migrations/schema";
 import db from "./db";
-import { Folder, Subscription, workspace } from "./supabase.types";
-import { validate } from 'uuid';
+import { Subscription, workspace } from "./supabase.types";
 
 export const createWorkspace = async (workspace: workspace) => {
   try {
@@ -25,25 +23,5 @@ export const getUserSubscriptionStatus = async (userId: string) => {
   } catch (error) {
     console.log(error);
     return { data: null, error: `Error` };
-  }
-};
-
-export const getFolders = async (workspaceId: string) => {
-  const isValid = validate(workspaceId);
-  if (!isValid)
-    return {
-      data: null,
-      error: 'Error',
-    };
-
-  try {
-    const results: Folder[] | [] = await db
-      .select()
-      .from(folders)
-      .orderBy(folders.createdAt)
-      .where(eq(folders.workspaceId, workspaceId));
-    return { data: results, error: null };
-  } catch (error) {
-    return { data: null, error: 'Error' };
   }
 };
