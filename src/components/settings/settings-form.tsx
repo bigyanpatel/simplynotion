@@ -294,7 +294,7 @@ const SettingsForm = () => {
               <ScrollArea
                 className="
             h-[120px]
-            overflow-y-scroll
+            overflow-y-auto
             w-full
             rounded-md
             border
