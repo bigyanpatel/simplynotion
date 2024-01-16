@@ -34,6 +34,7 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import EmojiPicker from '../global/emoji-picker';
 import { XCircleIcon } from 'lucide-react';
 import { useSupabaseUser } from '@/lib/providers/supabase-user-provider';
+import { Badge } from '../ui/badge';
 
 interface QuillEditorProps {
   dirDetails: File | Folder | workspace;
@@ -606,7 +607,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
                 </TooltipProvider>
               ))}
             </div>
-            {/* {saving ? (
+            {saving ? (
               <Badge
                 variant="secondary"
                 className="bg-orange-600 top-4
@@ -629,7 +630,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
               >
                 Saved
               </Badge>
-            )} */}
+            )}
           </div>
         </div>
       </div>
