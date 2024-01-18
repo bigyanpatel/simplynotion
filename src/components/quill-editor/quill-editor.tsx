@@ -378,10 +378,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({
   }, [socket, quill, fileId]);
 
   //Send quill changes to all clients
-  useEffect(() => {
-    console.log("quill", quill);
-    console.log("socket", socket);
-    
+  useEffect(() => {    
     if (quill === null || socket === null || !fileId || !user) return;
     
     const selectionChangeHandler = (cursorId: string) => {
