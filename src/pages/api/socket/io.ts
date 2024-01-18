@@ -1,4 +1,4 @@
-// import { NextApiResponseServerIo } from '@/lib/types';
+import { NextApiResponseServerIo } from '@/lib/types';
 import { Server as NetServer } from 'http';
 import { Server as ServerIO } from 'socket.io';
 import { NextApiRequest } from 'next';
@@ -22,7 +22,6 @@ const ioHandler = (req: NextApiRequest, res: NextApiResponseServerIo) => {
         s.join(fileId);
       });
       s.on('send-changes', (deltas, fileId) => {
-        console.log('CHANGE');
         s.to(fileId).emit('receive-changes', deltas, fileId);
       });
       s.on('send-cursor-move', (range, fileId, cursorId) => {
