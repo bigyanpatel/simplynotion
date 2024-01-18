@@ -16,6 +16,7 @@ import PlanUsage from "./plan-usage";
 import NativeNavigation from "./native-navigation";
 import { ScrollArea } from "../ui/scroll-area";
 import FoldersDropdownList from "./folders-dropdown-list";
+import UserCard from "./user-card";
 
 interface SidebarProps {
   params: { workspaceId: string };
@@ -35,11 +36,11 @@ const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
   const { data: subscriptionData, error: subscriptionError } =
     await getUserSubscriptionStatus(user.id);
 
-  //   folders
+  //folders
   const { data: workspaceFolderData, error: foldersError } = await getFolders(
     params.workspaceId
   );
-  //   error
+  //error
   if (subscriptionError || foldersError) redirect("/dashboard");
 
   const [privateWorkspaces, collaboratingWorkspaces, sharedWorkspaces] =
@@ -49,6 +50,7 @@ const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
       getSharedWorkspaces(user.id),
     ]);
 
+  //get all the different workspaces private collaborating shared
   return (
     <aside
       className={twMerge(
@@ -94,6 +96,7 @@ const Sidebar: React.FC<SidebarProps> = async ({ params, className }) => {
           />
         </ScrollArea>
       </div>
+      <UserCard subscription={subscriptionData} />
     </aside>
   );
 };
